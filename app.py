@@ -22,4 +22,14 @@ app = Flask(__name__)
 
 @app.route("/")
 def hello():
-    return "Airport API in construction"
+    #return "Airport API in construction"
+
+    taxi_origin = request.args['taxi_origin']
+
+    taxi_destination = request.args['taxi_destination'] 
+    
+    main_output = nx.shortest_path(airport_graph, source = taxi_origin, target = taxi_destination)
+
+    print(main_output)
+           
+    return jsonify(main_output)
