@@ -40,4 +40,4 @@ def airportRouter():
 
     print(main_output)
            
-    return jsonify(main_output)
+    return jsonify(output_dict)
