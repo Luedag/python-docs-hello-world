@@ -32,12 +32,20 @@ def airportRouter():
 
     output_dict = {}
 
+    output_dict["origin"] = main_output[0]
+
+    output_dict["destination"] = main_output[-1]
+
+    del main_output[0]
+
+    del main_output[-1]
+
     output_dict["Taxiways"] = []
 
     for i in main_output:
 
         output_dict["Taxiways"].append({"Way" : i})
 
-    print(main_output)
+    #print(main_output)
            
     return jsonify(output_dict)
