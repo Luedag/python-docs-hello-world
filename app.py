@@ -10,8 +10,6 @@ import numpy as np
 
 import json
 
-from server import app
-
 import networkx as nx
 
 from flask import request, jsonify
