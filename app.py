@@ -21,7 +21,7 @@ airport_graph = nx.from_pandas_edgelist(df = airport_data, source = "location_1"
 app = Flask(__name__)
 
 @app.route("/")
-def hello():
+def airportRouter():
     #return "Airport API in construction"
 
     taxi_origin = request.args['taxi_origin']
