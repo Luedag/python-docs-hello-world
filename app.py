@@ -30,6 +30,14 @@ def airportRouter():
     
     main_output = nx.shortest_path(airport_graph, source = taxi_origin, target = taxi_destination)
 
+    output_dict = {}
+
+    output_dict["Taxiways"] = []
+
+    for i in main_output:
+
+        output_dict["Taxiways"].append({"Way" : i})
+
     print(main_output)
            
     return jsonify(main_output)
