@@ -26,12 +26,18 @@ app = Flask(__name__)
 def hello():
     #return "Airport API in construction"
 
-    taxi_origin = request.args['taxi_origin']
+    try:
 
-    taxi_destination = request.args['taxi_destination'] 
-    
-    main_output = nx.shortest_path(airport_graph, source = taxi_origin, target = taxi_destination)
+        taxi_origin = request.args['taxi_origin']
 
-    print(main_output)
-           
-    return jsonify(main_output)
+        taxi_destination = request.args['taxi_destination'] 
+        
+        main_output = nx.shortest_path(airport_graph, source = taxi_origin, target = taxi_destination)
+
+        print(main_output)
+            
+        return jsonify(main_output)
+
+    except Exception as e:
+
+        return f"{e}"
