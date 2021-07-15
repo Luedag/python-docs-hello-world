@@ -16,6 +16,9 @@ from flask import request, jsonify
 
 airport_data = pd.read_csv("airport_data.csv")
 
+with open("alias_dict.json", "r") as lf:
+    alias_dict = json.load(lf)
+
 airport_graph = nx.from_pandas_edgelist(df = airport_data, source = "location_1", target = "location_2")
 
 app = Flask(__name__)
@@ -26,7 +29,11 @@ def airportRouter():
 
     taxi_origin = request.args['taxi_origin']
 
-    taxi_destination = request.args['taxi_destination'] 
+    taxi_destination = request.args['taxi_destination']
+
+    taxi_origin = taxi_origin.lower()
+
+    taxi_origin = alias_dict[taxi_origin]
     
     main_output = nx.shortest_path(airport_graph, source = taxi_origin, target = taxi_destination)
 
