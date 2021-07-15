@@ -31,27 +31,57 @@ def airportRouter():
 
     taxi_destination = request.args['taxi_destination']
 
+    location_found = 0
+
     taxi_origin = taxi_origin.lower()
 
-    taxi_origin = alias_dict[taxi_origin]
-    
-    main_output = nx.shortest_path(airport_graph, source = taxi_origin, target = taxi_destination)
+    try:
+
+        taxi_origin = alias_dict[taxi_origin]
+
+        location_found = 1
+
+    except:
+
+        location_found = 0
+        
+    try:
+
+        main_output = nx.shortest_path(airport_graph, source = taxi_origin, target = taxi_destination)
+
+        location_found = 1
+
+    except:
+
+        location_found = 0
 
     output_dict = {}
 
-    output_dict["origin"] = main_output[0]
+    if location_found == 1:
 
-    output_dict["destination"] = main_output[-1]
+        output_dict["origin"] = main_output[0]
 
-    del main_output[0]
+        output_dict["destination"] = main_output[-1]
 
-    del main_output[-1]
+        del main_output[0]
 
-    output_dict["Taxiways"] = []
+        del main_output[-1]
 
-    for i in main_output:
+        output_dict["Taxiways"] = []
 
-        output_dict["Taxiways"].append({"Way" : i})
+        for i in main_output:
+
+            output_dict["Taxiways"].append({"Way" : i})
+
+    else:
+
+        output_dict["origin"] = "not_found"
+
+        output_dict["destination"] = "not_found"
+
+        output_dict["Taxiways"] = []
+
+        output_dict["Taxiways"].append({"Way" : "not_found"})
 
     #print(main_output)
            
